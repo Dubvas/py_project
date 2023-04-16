@@ -18,6 +18,7 @@ class InvalidArgument(Exception):
 
 
 def process_file(in_filename: str, out_filename: str, func):
+    '''Applies given function do data in in_file, saves result out_file'''
     with open(in_filename, 'rb') as inp:
         with open(out_filename, 'wb') as out:
             s = inp.read()
@@ -26,16 +27,19 @@ def process_file(in_filename: str, out_filename: str, func):
 
 
 def encrypt_file(crypter, filename: str):
+    '''Encrypts file with given crypter'''
     process_file(filename, filename + globals.extension, crypter.encrypt_message)
 
 
 def decrypt_file(crypter, filename: str):
+    '''Decrypts file with crypter, raises error if file exception is not globals.extension'''
     if not filename.endswith(globals.extension):
         raise InvalidArgument from Exception
     process_file(filename, filename[:-len(globals.extension)], crypter.decrypt_message)
 
 
 def rate_message(msg):
+    '''Rates how well text matches english letter distribution'''
     cnt = defaultdict(int)
     latin_cnt = 0
     for cr in msg:
@@ -50,8 +54,8 @@ def rate_message(msg):
 
     return result
 
+
 if __name__ == "__main__":
-    "mode(enc, dec or crack, then crypter and key (if enc/dec), then filenames..."
     args = dict()
     args["mode"] = sys.argv[1].lower()
     ptr = 2
