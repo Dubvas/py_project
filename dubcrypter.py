@@ -1,4 +1,4 @@
-import globals
+import src.globals as globals
 import sys
 from collections import defaultdict
 from src.ceasar import CeasarCrypter
